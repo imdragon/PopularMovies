@@ -8,6 +8,8 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+    public String[] text = {"first", "second"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
