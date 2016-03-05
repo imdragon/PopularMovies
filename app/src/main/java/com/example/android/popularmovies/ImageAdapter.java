@@ -33,7 +33,6 @@ public class ImageAdapter extends BaseAdapter {
     public ImageAdapter(Context c) {
         new RequestPopularMovies().execute(null, null, null);
         mContext = c;
-        mContext.getResources().getStringArray();
     }
 
     @Override
