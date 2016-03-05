@@ -18,6 +18,7 @@ public class ImageAdapter extends BaseAdapter {
 
     public ImageAdapter(Context c, ArrayList<String> moviePosterAddress) {
         mContext = c;
+        //allows me to take movie info downloaded from MainActivity
         moviePathString = moviePosterAddress.toArray(new String[moviePosterAddress.size()]);
     }
 
