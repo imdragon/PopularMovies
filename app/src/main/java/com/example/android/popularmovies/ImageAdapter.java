@@ -8,14 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ImageAdapter extends BaseAdapter {
     public Context mContext;
-    private String moviesPosters;
+    private ArrayList<String> moviePosters = new ArrayList<>();
 
 
     public ImageAdapter(Context c) {
@@ -25,7 +29,7 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-//        return moviesPosters.length();
+//        return moviePosters.size();
         return 0;
     }
 
@@ -46,11 +50,16 @@ public class ImageAdapter extends BaseAdapter {
 
     private class RequestPopularMovies extends AsyncTask<Void, Void, Void> {
         StringBuilder total = new StringBuilder();
-        String apiKey = mContext.getResources().getString(R.string.apiKey);
+        final String MOVIE_BLOCKS = "results";
+        final String MOVIE_TITLE = "original_title";
+        final String MOVIE_POSTER = "poster_path";
+        final String MOVIE_OVERVIEW = "overview";
+        final String MOVIE_RELEASE_DATE = "release_date";
+        StringBuilder moviesList = new StringBuilder();
 
         @Override
         protected Void doInBackground(Void... params) {
-// using the apikey in a seperate string file to protect the apikey
+// using the apikey in a separate string file to protect the apikey
             try {
                 URL url = new URL("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + mContext.getResources().getString(R.string.apiKey));
                 // making url request and sending it to be read
@@ -66,6 +75,16 @@ public class ImageAdapter extends BaseAdapter {
                 // checking if getting back something
                 Log.e("Response", total.toString());
 
+                //JSON section
+                JSONObject popArray = new JSONObject(total.toString());
+                JSONArray movies = popArray.getJSONArray(MOVIE_BLOCKS);
+
+                for (int i = 0; i<movies.length(); i++){
+                    JSONObject aTitle = movies.getJSONObject(i);
+                    moviePosters.add(aTitle.getString(MOVIE_POSTER));
+
+                    Log.e("poster path"+i, aTitle.getString(MOVIE_POSTER));
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -73,32 +92,4 @@ public class ImageAdapter extends BaseAdapter {
             return null;
         }
     }
-
-
-//    private class RequestPopularMovies extends AsyncTask<Void, Void, Void> {
-//        StringBuilder total = new StringBuilder();
-//
-//        @Override
-//        protected Void doInBackground(Void... params) {
-//            try {
-//                // using the apikey in a seperate string file to protect the apikey
-//                URL url = new URL("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + getResources().getString(R.string.apiKey));
-//                // making url request and sending it to be read
-//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//                // preparing a reader to go through the response
-//                BufferedReader r = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                // below allows for controlled reading of potentially large text
-//                String line;
-//                while ((line = r.readLine()) != null) {
-//                    total.append(line);
-//                }
-//                // experimental stuff below
-//
-//                JSONObject popArray = new JSONObject(total.toString());
-//                JSONArray movies = popArray.getJSONArray(MOVIE_BLOCKS);
-//            }
-//            return null;
-//        }
-//
-//    }
 }
