@@ -1,11 +1,9 @@
 package com.example.android.popularmovies;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +24,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    public String[] text = {"first", "second"};
     private ArrayList<String> moviePosterAddress = new ArrayList<>();
     private JSONObject popArray;
     private JSONArray movies;
@@ -36,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new RequestPopularMovies().execute(null, null, null);
+        new RequestPopularMovies().execute("popularity.desc", null, null);
 
     }
 
@@ -51,9 +48,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     // Replace toasts with calls to RequestPopularMovies
                     if (which == 0) {
-                        Toast.makeText(MainActivity.this, "Sorting by popularity now!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "Sorting by popularity now!", Toast.LENGTH_SHORT).show();
+                        new RequestPopularMovies().execute("popularity.desc", null,null);
+                        // popularity.desc
                     } else {
-                        Toast.makeText(MainActivity.this, "Sorting by highest rated now!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "Sorting by highest rated now!", Toast.LENGTH_SHORT).show();
+                        new RequestPopularMovies().execute("rating.desc", null,null);
+                        // rating.desc
                     }
                 }
             });
@@ -71,8 +72,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // added ImageView take it out if it doesn't work! 3/4
-    private class RequestPopularMovies extends AsyncTask<Void, Void, Void> {
+    private class RequestPopularMovies extends AsyncTask<String, Void, Void> {
         StringBuilder total = new StringBuilder();
+
         final String MOVIE_BLOCKS = "results";
         final String MOVIE_TITLE = "original_title";
         //        final String MOVIE_POSTER = "poster_path";
@@ -81,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder moviesList = new StringBuilder();
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(String... params) {
             // using the apikey in a separate string file to protect the apikey
             try {
-                URL url = new URL("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + getResources().getString(R.string.apiKey));
+                URL url = new URL("https://api.themoviedb.org/3/discover/movie?sort_by="+params+"&api_key=" + getResources().getString(R.string.apiKey));
                 // making url request and sending it to be read
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 // preparing a reader to go through the response
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 movies = popArray.getJSONArray(MOVIE_BLOCKS);
                 // REMOVE FOR FINAL!
                 Log.e("movie titles", movies.toString());
-
+moviePosterAddress.clear();
                 // get movie poster filenames and put in an array
                 for (int i = 0; i < movies.length(); i++) {
                     JSONObject aTitle = movies.getJSONObject(i);
