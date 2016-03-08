@@ -2,6 +2,7 @@ package com.example.android.popularmovies;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> moviePosterAddress = new ArrayList<>();
     private JSONObject popArray;
     private JSONArray movies;
-    final String MOVIE_POSTER = "poster_path";
+    private ArrayList<Movie> movieObjectArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
         final String MOVIE_BLOCKS = "results";
         final String MOVIE_TITLE = "original_title";
-        //        final String MOVIE_POSTER = "poster_path";
+        final String MOVIE_POSTER = "poster_path";
         final String MOVIE_OVERVIEW = "overview";
+        final String MOVIE_RATING = "vote_average";
         final String MOVIE_RELEASE_DATE = "release_date";
         StringBuilder moviesList = new StringBuilder();
 
@@ -104,12 +106,24 @@ public class MainActivity extends AppCompatActivity {
                 // REMOVE FOR FINAL!
                 Log.e("movie titles", movies.toString());
                 moviePosterAddress.clear();
+                movieObjectArray.clear();
                 // get movie poster filenames and put in an array
                 for (int i = 0; i < movies.length(); i++) {
+                    Movie tempMovie = null;
                     JSONObject aTitle = movies.getJSONObject(i);
                     moviePosterAddress.add(aTitle.getString(MOVIE_POSTER));
                     // check to see if working
                     Log.e("poster path" + i, aTitle.getString(MOVIE_POSTER));
+                    // Build movie object
+                    tempMovie.setTitle(aTitle.getString(MOVIE_TITLE));
+                    tempMovie.setPoster(aTitle.getString(MOVIE_POSTER));
+                    tempMovie.setSynopsis(aTitle.getString(MOVIE_OVERVIEW));
+                    tempMovie.setRating(aTitle.getString(MOVIE_RATING));
+                    tempMovie.setReleaseDate(aTitle.getString(MOVIE_RELEASE_DATE));
+//                    Movie movieInfo = new Movie(tempMovie);
+                    movieObjectArray.add(tempMovie);
+
+
                 }
                 connection.disconnect();
             } catch (Exception e) {
@@ -129,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
                                         int position, long id) {
                     Toast.makeText(MainActivity.this, "" + position,
                             Toast.LENGTH_SHORT).show();
+                    MovieParcelable selectedMovie = new MovieParcelable(movieObjectArray.get(position));
+                    Bundle b = new Bundle();
+                    b.putParcelable("movieinfo", selectedMovie);
+                    startActivity(new Intent(MainActivity.this, MovieDetailActivity.class).putExtra("movieInfo", b));
                 }
             });
         }
