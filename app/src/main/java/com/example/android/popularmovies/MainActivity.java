@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             (Toast.makeText(this, "Sort options popup", Toast.LENGTH_SHORT)).show();
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(R.string.sort_option).setItems(R.array.sortOptionArray, new DialogInterface.OnClickListener() {
-
+                //// TODO: 3/8/2016 See about styling the AlertDialog without a new layout
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // Replace toasts with calls to RequestPopularMovies
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 // checking if getting back something
                 // REMOVE FOR FINAL!
                 Log.e("Response", total.toString());
-
+//// TODO: 3/8/2016 Clean up this section, possibly create a Movie Object
                 //JSON section
                 popArray = new JSONObject(total.toString());
                 movies = popArray.getJSONArray(MOVIE_BLOCKS);
