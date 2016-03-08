@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new RequestPopularMovies().execute("popularity.desc", null, null);
-
     }
 
     @Override
@@ -48,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     // Replace toasts with calls to RequestPopularMovies
                     if (which == 0) {
-//                        Toast.makeText(MainActivity.this, "Sorting by popularity now!", Toast.LENGTH_SHORT).show();
-                        new RequestPopularMovies().execute("popularity.desc", null,null);
+                        new RequestPopularMovies().execute("popularity.desc", null, null);
                         // popularity.desc
                     } else {
-//                        Toast.makeText(MainActivity.this, "Sorting by highest rated now!", Toast.LENGTH_SHORT).show();
-                        new RequestPopularMovies().execute("rating.desc", null,null);
+                        new RequestPopularMovies().execute("vote_average.desc", null, null);
                         // rating.desc
                     }
                 }
@@ -86,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(String... params) {
             // using the apikey in a separate string file to protect the apikey
             try {
-                URL url = new URL("https://api.themoviedb.org/3/discover/movie?sort_by="+params+"&api_key=" + getResources().getString(R.string.apiKey));
+                URL url = new URL("https://api.themoviedb.org/3/discover/movie?sort_by=" + params[0] + "&api_key=" + getResources().getString(R.string.apiKey));
                 // making url request and sending it to be read
+                Log.e("my url is", String.valueOf(url));
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 // preparing a reader to go through the response
                 BufferedReader r = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 movies = popArray.getJSONArray(MOVIE_BLOCKS);
                 // REMOVE FOR FINAL!
                 Log.e("movie titles", movies.toString());
-moviePosterAddress.clear();
+                moviePosterAddress.clear();
                 // get movie poster filenames and put in an array
                 for (int i = 0; i < movies.length(); i++) {
                     JSONObject aTitle = movies.getJSONObject(i);

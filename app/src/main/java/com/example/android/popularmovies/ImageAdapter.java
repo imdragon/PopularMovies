@@ -53,11 +53,10 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
         //        moviePosterAddress.add(aTitle.getString(MOVIE_POSTER));
-        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w780/" + moviePathString[position])
+        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w185/" + moviePathString[position])
 //                + "&sa=D&ust=1456543435696000&usg="
 //                + mContext.getResources().getString(R.string.apiKey))
                 .placeholder(R.drawable.comingsoon).into(imageView);
-        //        Log.e("full urls", "http://image.tmdb.org/t/p/w780/"+ moviePosters.get(position));
         Log.e("Url: ", "http://image.tmdb.org/t/p/w780/" + moviePathString[position]);
         return imageView;
     }
