@@ -1,9 +1,9 @@
 package com.example.android.popularmovies;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class MovieDetailActivity extends Activity{
+public class MovieDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

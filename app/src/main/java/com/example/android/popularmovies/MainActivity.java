@@ -106,10 +106,10 @@ public class MainActivity extends AppCompatActivity {
                 // REMOVE FOR FINAL!
                 Log.e("movie titles", movies.toString());
                 moviePosterAddress.clear();
-                movieObjectArray.clear();
+                movieObjectArray = new ArrayList<>();
                 // get movie poster filenames and put in an array
                 for (int i = 0; i < movies.length(); i++) {
-                    Movie tempMovie = null;
+                    Movie tempMovie = new Movie();
                     JSONObject aTitle = movies.getJSONObject(i);
                     moviePosterAddress.add(aTitle.getString(MOVIE_POSTER));
                     // check to see if working
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     MovieParcelable selectedMovie = new MovieParcelable(movieObjectArray.get(position));
                     Bundle b = new Bundle();
                     b.putParcelable("movieinfo", selectedMovie);
-                    startActivity(new Intent(MainActivity.this, MovieDetailActivity.class).putExtra("movieInfo", b));
+                    startActivity(new Intent(MainActivity.this, MovieDetailsActivity.class).putExtra("movieInfo", b));
                 }
             });
         }

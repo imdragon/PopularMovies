@@ -8,6 +8,10 @@ public class Movie {
     public String releaseDate;
     public String rating;
 
+    public Movie() {
+
+    }
+
     public String getReleaseDate() {
         return releaseDate;
     }

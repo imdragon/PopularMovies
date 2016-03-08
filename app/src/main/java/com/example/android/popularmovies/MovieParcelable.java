@@ -3,9 +3,6 @@ package com.example.android.popularmovies;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Admin on 3/8/2016.
- */
 public class MovieParcelable implements Parcelable {
     private Movie movie;
 
