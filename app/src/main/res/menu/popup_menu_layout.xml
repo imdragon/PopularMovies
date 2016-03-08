@@ -1,9 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <item
+<menu
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:popularmovies="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.android.popularmovies.MainActivity">
+
+
+<item
         android:id="@+id/sortChoice"
-        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:visible="true"
+        popularmovies:showAsAction="always"
         android:title="@string/sort_option" />
 </menu>
