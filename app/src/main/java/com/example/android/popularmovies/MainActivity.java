@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -23,7 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     public String[] text = {"first", "second"};
     private ArrayList<String> moviePosterAddress = new ArrayList<>();
     private JSONObject popArray;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.sortChoice){
             (Toast.makeText(this,"Sort options popup", Toast.LENGTH_SHORT)).show();
+            popupSort(findViewById(R.id.gridview));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -51,6 +53,27 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.popup_menu_layout, menu);
         return true;
+    }
+    public void popupSort (View v){
+        PopupMenu pop = new PopupMenu(this, v);
+        pop.setOnMenuItemClickListener(MainActivity.this);
+        MenuInflater inflater = pop.getMenuInflater();
+        inflater.inflate(R.menu.sortingoptions, pop.getMenu());
+        pop.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.popularity:
+                Toast.makeText(this, "Popularity sorting!", Toast.LENGTH_SHORT).show();
+                //request popularity
+            case R.id.rating:
+                Toast.makeText(this, "Rating sorting!", Toast.LENGTH_SHORT).show();
+                //request rating
+                default:
+                    return false;
+        }
     }
 
     // added ImageView take it out if it doesn't work! 3/4
