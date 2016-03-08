@@ -3,7 +3,11 @@ package com.example.android.popularmovies;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -18,7 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     public String[] text = {"first", "second"};
     private ArrayList<String> moviePosterAddress = new ArrayList<>();
     private JSONObject popArray;
@@ -31,6 +35,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         new RequestPopularMovies().execute(null, null, null);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.popup_menu_layout, menu);
+        return true;
     }
 
     // added ImageView take it out if it doesn't work! 3/4
@@ -58,11 +69,13 @@ public class MainActivity extends Activity {
                     total.append(line);
                 }
                 // checking if getting back something
+                // REMOVE FOR FINAL!
                 Log.e("Response", total.toString());
 
                 //JSON section
                 popArray = new JSONObject(total.toString());
                 movies = popArray.getJSONArray(MOVIE_BLOCKS);
+                // REMOVE FOR FINAL!
                 Log.e("movie titles", movies.toString());
 
                 // get movie poster filenames and put in an array
@@ -72,10 +85,11 @@ public class MainActivity extends Activity {
                     // check to see if working
                     Log.e("poster path" + i, aTitle.getString(MOVIE_POSTER));
                 }
-
+                connection.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 
