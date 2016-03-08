@@ -3,4 +3,9 @@
     <string name="sort_option">Sort Method</string>
     <string name="popularity">Most Popular</string>
     <string name="rating">Highest Rated</string>
+
+    <array name="sortOptionArray">
+        <item>Popularity</item>
+        <item>Highest Rated</item>
+    </array>
 </resources>

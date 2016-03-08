@@ -1,6 +1,8 @@
 package com.example.android.popularmovies;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -40,8 +42,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.sortChoice){
-            (Toast.makeText(this,"Sort options popup", Toast.LENGTH_SHORT)).show();
+        if (item.getItemId() == R.id.sortChoice) {
+            (Toast.makeText(this, "Sort options popup", Toast.LENGTH_SHORT)).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(R.string.sort_option).setItems(R.array.sortOptionArray, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Replace toasts with calls to RequestPopularMovies
+                    if (which == 0) {
+                        Toast.makeText(MainActivity.this, "Sorting by popularity now!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Sorting by highest rated now!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            AlertDialog pop = builder.create();
+            pop.show();
         }
         return super.onOptionsItemSelected(item);
     }
