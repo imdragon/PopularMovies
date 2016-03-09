@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sortChoice) {
-            (Toast.makeText(this, "Sort options popup", Toast.LENGTH_SHORT)).show();
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(R.string.sort_option).setItems(R.array.sortOptionArray, new DialogInterface.OnClickListener() {
                 //// TODO: 3/8/2016 See about styling the AlertDialog without a new layout
@@ -141,9 +140,7 @@ public class MainActivity extends AppCompatActivity {
             gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v,
                                         int position, long id) {
-                    Toast.makeText(MainActivity.this, "" + position,
-                            Toast.LENGTH_SHORT).show();
-                   Movie movieDetails = movieObjectArray.get(position);
+                    Movie movieDetails = movieObjectArray.get(position);
                     Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
                     i.putExtra("movieInfo", movieDetails);
                     startActivity(i);
