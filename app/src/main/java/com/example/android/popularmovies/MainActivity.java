@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 // checking if getting back something
                 // REMOVE FOR FINAL!
                 Log.e("Response", total.toString());
-//// TODO: 3/8/2016 Clean up this section, possibly create a Movie Object
+//// TODO: 3/8/2016 Clean up this section
                 //JSON section
                 popArray = new JSONObject(total.toString());
                 movies = popArray.getJSONArray(MOVIE_BLOCKS);
@@ -143,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
                                         int position, long id) {
                     Toast.makeText(MainActivity.this, "" + position,
                             Toast.LENGTH_SHORT).show();
-                    MovieParcelable selectedMovie = new MovieParcelable(movieObjectArray.get(position));
-                    Bundle b = new Bundle();
-                    b.putParcelable("movieinfo", selectedMovie);
-                    startActivity(new Intent(MainActivity.this, MovieDetailsActivity.class).putExtra("movieInfo", b));
+                   Movie movieDetails = movieObjectArray.get(position);
+                    Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                    i.putExtra("movieInfo", movieDetails);
+                    startActivity(i);
                 }
             });
         }

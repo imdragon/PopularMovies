@@ -1,6 +1,9 @@
 package com.example.android.popularmovies;
 
-public class Movie {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Movie implements Parcelable {
 
     public String title;
     public String poster;
@@ -11,6 +14,26 @@ public class Movie {
     public Movie() {
 
     }
+
+    protected Movie(Parcel in) {
+        title = in.readString();
+        poster = in.readString();
+        synopsis = in.readString();
+        releaseDate = in.readString();
+        rating = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getReleaseDate() {
         return releaseDate;
@@ -62,4 +85,31 @@ public class Movie {
     }
 
 
+    /**
+     * Describe the kinds of special objects contained in this Parcelable's
+     * marshalled representation.
+     *
+     * @return a bitmask indicating the set of special object types marshalled
+     * by the Parcelable.
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Flatten this object in to a Parcel.
+     *
+     * @param dest  The Parcel in which the object should be written.
+     * @param flags Additional flags about how the object should be written.
+     *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(poster);
+        dest.writeString(synopsis);
+        dest.writeString(releaseDate);
+        dest.writeString(rating);
+    }
 }
