@@ -1,7 +1,9 @@
 package com.example.android.popularmovies;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +20,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         TextView mTitle = (TextView) findViewById(R.id.original_title_detail);
         mTitle.setText(details.getTitle());
+        ImageView mBackdrop = (ImageView) findViewById(R.id.backdropImageView);
+        Picasso.with(this).load("http://image.tmdb.org/t/p/w780/"+details.getBackdrop()).into(mBackdrop);
+        Log.e("backdrop url", "http://image.tmdb.org/t/p/w780/"+details.getBackdrop());
         ImageView mPoster = (ImageView) findViewById(R.id.mPoster);
         Picasso.with(this).load("http://image.tmdb.org/t/p/w780/" + details.getPoster())
                 .placeholder(R.drawable.comingsoon).into(mPoster);

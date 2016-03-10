@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     tempMovie.setSynopsis(aTitle.getString(MOVIE_OVERVIEW));
                     tempMovie.setRating(aTitle.getString(MOVIE_RATING));
                     tempMovie.setReleaseDate(aTitle.getString(MOVIE_RELEASE_DATE));
+                    tempMovie.setBackdrop(aTitle.getString(MOVIE_BACKDROP));
                     movieObjectArray.add(tempMovie);
 
 
