@@ -8,58 +8,91 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    android:background="@android:color/black"
-        android:orientation="horizontal">
+        android:background="@android:color/black"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/mPoster"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerInside"
-                android:src="@drawable/comingsoon" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/original_title_detail"
                 style="@style/appText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="The Move Title"
-                android:textAppearance="@android:style/TextAppearance.Large" />
-
-            <TextView
-                android:id="@+id/synopsis"
-                style="@style/appText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="A bunch of random text right here for the mean time so that we can replace it later with the actual synopsis" />
+                android:layout_gravity="left"
+                android:background="@color/barColor"
+                android:padding="50dp"
+                android:text="The Movie Title"
+                android:textSize="48sp"
+/>        </LinearLayout>
 
-            <TextView
-                android:id="@+id/releaseDate"
-                style="@style/appText"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <ImageView
+                    android:id="@+id/mPoster"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+
+                    android:layout_weight=".7"
+                    android:padding="1dp"
+                    android:src="@drawable/comingsoon" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="released August 2015" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/ratingDetail"
-                style="@style/appText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5/7" />
+                <TextView
+                    android:id="@+id/releaseDate"
+                    style="@style/appText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="released August 2015" />
+
+                <TextView
+                    android:id="@+id/ratingDetail"
+                    style="@style/appText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5/7" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Runtime" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mark as\nFavorite" />
+
+            </LinearLayout>
         </LinearLayout>
 
-
+        <TextView
+            android:id="@+id/synopsis"
+            style="@style/appText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/barColor"
+            android:text="A bunch of random text right here for the mean time so that we can replace it later with the actual synopsis" />
     </LinearLayout>
+
 </ScrollView>

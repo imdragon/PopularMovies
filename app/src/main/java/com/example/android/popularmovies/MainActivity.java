@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         final String MOVIE_BLOCKS = "results";
         final String MOVIE_TITLE = "original_title";
         final String MOVIE_POSTER = "poster_path";
+        final String MOVIE_BACKDROP = "backdrop_path";
         final String MOVIE_OVERVIEW = "overview";
         final String MOVIE_RATING = "vote_average";
         final String MOVIE_RELEASE_DATE = "release_date";
@@ -118,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     tempMovie.setSynopsis(aTitle.getString(MOVIE_OVERVIEW));
                     tempMovie.setRating(aTitle.getString(MOVIE_RATING));
                     tempMovie.setReleaseDate(aTitle.getString(MOVIE_RELEASE_DATE));
-//                    Movie movieInfo = new Movie(tempMovie);
                     movieObjectArray.add(tempMovie);
 
 

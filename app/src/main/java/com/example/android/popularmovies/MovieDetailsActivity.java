@@ -20,13 +20,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mTitle.setText(details.getTitle());
         ImageView mPoster = (ImageView) findViewById(R.id.mPoster);
         Picasso.with(this).load("http://image.tmdb.org/t/p/w780/" + details.getPoster())
-                .placeholder(R.drawable.comingsoon).fit().into(mPoster);
+                .placeholder(R.drawable.comingsoon).into(mPoster);
         TextView mOverview = (TextView) findViewById(R.id.synopsis);
         mOverview.setText(details.getSynopsis());
         TextView mRelease = (TextView) findViewById(R.id.releaseDate);
         mRelease.setText(details.getReleaseDate());
         TextView mRating = (TextView) findViewById(R.id.ratingDetail);
-        mRating.setText(details.getRating());
+        mRating.setText(details.getRating()+"/10");
 
 
     }
