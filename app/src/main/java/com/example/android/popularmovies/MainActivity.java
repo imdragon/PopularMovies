@@ -45,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
                 //// TODO: 3/8/2016 See about styling the AlertDialog without a new layout
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // Replace toasts with calls to RequestPopularMovies
                     if (which == 0) {
                         new RequestPopularMovies().execute("popularity.desc", null, null);
                         // popularity.desc
                     } else {
-                        new RequestPopularMovies().execute("vote_average.desc", null, null);
+//                        new RequestPopularMovies().execute("vote_average.desc&sort_by=vote_count.desc", null, null);
+                        // below request shows by highest rating for US movies
+                        new RequestPopularMovies().execute("certification_country=US&sort_by=vote_average.desc&vote_count.gte=1000", null, null);
                         // rating.desc
                     }
                 }
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // added ImageView take it out if it doesn't work! 3/4
     private class RequestPopularMovies extends AsyncTask<String, Void, Void> {
         StringBuilder total = new StringBuilder();
 
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         final String MOVIE_OVERVIEW = "overview";
         final String MOVIE_RATING = "vote_average";
         final String MOVIE_RELEASE_DATE = "release_date";
-        StringBuilder moviesList = new StringBuilder();
 
         @Override
         protected Void doInBackground(String... params) {
