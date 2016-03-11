@@ -69,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle store) {
+        store.putParcelableArrayList("movies", movieObjectArray);
+        super.onSaveInstanceState(store);
+    }
+
     private class RequestPopularMovies extends AsyncTask<String, Void, Void> {
         StringBuilder total = new StringBuilder();
 
@@ -79,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         final String MOVIE_OVERVIEW = "overview";
         final String MOVIE_RATING = "vote_average";
         final String MOVIE_RELEASE_DATE = "release_date";
+        final String MOVIE_RUNTIME = "runtime";
 
         @Override
         protected Void doInBackground(String... params) {

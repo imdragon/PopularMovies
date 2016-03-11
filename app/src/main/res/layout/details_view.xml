@@ -20,19 +20,18 @@
                 android:id="@+id/backdropImageView"
                 android:layout_width="match_parent"
                 android:layout_height="205dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/original_title_detail"
-                style="@style/appText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@id/backdropImageView"
                 android:background="@android:color/transparent"
-                android:paddingBottom="50dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="50dp"
-                android:paddingTop="50dp"
                 android:text="The Movie Title"
+                android:textColor="#cecece"
                 android:textSize="48sp" />
 
         </RelativeLayout>
@@ -46,6 +45,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingRight="8dp"
                 android:layout_weight="2">
 
                 <ImageView
@@ -60,7 +60,8 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingTop="16dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:orientation="vertical">

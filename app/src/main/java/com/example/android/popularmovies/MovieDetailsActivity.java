@@ -1,6 +1,7 @@
 package com.example.android.popularmovies;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +21,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         TextView mTitle = (TextView) findViewById(R.id.original_title_detail);
         mTitle.setText(details.getTitle());
+        mTitle.setShadowLayer(25, 0, 0, Color.BLACK );
+
         ImageView mBackdrop = (ImageView) findViewById(R.id.backdropImageView);
         Picasso.with(this).load("http://image.tmdb.org/t/p/w780/"+details.getBackdrop()).into(mBackdrop);
         Log.e("backdrop url", "http://image.tmdb.org/t/p/w780/"+details.getBackdrop());
