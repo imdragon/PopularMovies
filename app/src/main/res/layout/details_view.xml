@@ -32,7 +32,7 @@
                 android:paddingRight="50dp"
                 android:text="The Movie Title"
                 android:textColor="#cecece"
-                android:textSize="48sp" />
+                android:textSize="34sp" />
 
         </RelativeLayout>
 
@@ -45,9 +45,9 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingRight="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:paddingRight="8dp">
 
                 <ImageView
                     android:id="@+id/mPoster"
@@ -62,27 +62,35 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="16dp">
 
                 <TextView
                     android:id="@+id/releaseDate"
                     style="@style/appText"
                     android:layout_width="wrap_content"
-                    android:textStyle="bold"
-                    android:textAppearance="@android:style/TextAppearance.Material.Large"
                     android:layout_height="wrap_content"
-                    android:text="released August 2015" />
+                    android:text="released August 2015"
+                    android:textAppearance="@android:style/TextAppearance.Material.Large"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="10"
+                    android:isIndicator="true"/>
 
                 <TextView
                     android:id="@+id/ratingDetail"
                     style="@style/appText"
-                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5/7" />
+                    android:text="5/7"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -103,9 +111,9 @@
             style="@style/appText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textStyle="italic"
             android:layout_weight="1"
-            android:text="A bunch of random text right here for the mean time so that we can replace it later with the actual synopsis" />
+            android:text="A bunch of random text right here for the mean time so that we can replace it later with the actual synopsis"
+            android:textStyle="italic" />
     </LinearLayout>
 
 </ScrollView>
