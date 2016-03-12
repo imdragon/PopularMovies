@@ -32,9 +32,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
         TextView mOverview = (TextView) findViewById(R.id.synopsis);
         mOverview.setText(details.getSynopsis());
         TextView mRelease = (TextView) findViewById(R.id.releaseDate);
-        mRelease.setText(details.getReleaseDate());
+//        mRelease.setText(details.getReleaseDate());
+        mRelease.setText("Released: "+details.getReleaseDate().substring(0,4));
         TextView mRating = (TextView) findViewById(R.id.ratingDetail);
-        mRating.setText(details.getRating()+"/10");
+        mRating.setText("Rating: "+details.getRating()+"/10");
 
 
     }
