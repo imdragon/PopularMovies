@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +33,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new RequestPopularMovies().execute("popularity.desc", null, null);
+        if (savedInstanceState == null) {
+            new RequestPopularMovies().execute("popularity.desc", null, null);
+            Log.e("WAS NULL", "WAS NULL");
+        } else {
+            moviePosterAddress = savedInstanceState.getStringArrayList("posters");
+            movieObjectArray = savedInstanceState.getParcelableArrayList("movies");
+            setupGrid();
+            Log.e("NOT NULL", "NOT NULL");
+        }
     }
 
     @Override
@@ -49,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                         new RequestPopularMovies().execute("popularity.desc", null, null);
                         // popularity.desc
                     } else {
-//                        new RequestPopularMovies().execute("vote_average.desc&sort_by=vote_count.desc", null, null);
                         // below request shows by highest rating for US movies
                         new RequestPopularMovies().execute("certification_country=US&sort_by=vote_average.desc&vote_count.gte=1000", null, null);
                         // rating.desc
@@ -70,10 +76,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle store) {
-        store.putParcelableArrayList("movies", movieObjectArray);
-        super.onSaveInstanceState(store);
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.e("SAVEDiN", "SAVEDiN");
+        outState.putStringArrayList("posters", moviePosterAddress);
+        outState.putParcelableArrayList("movies", movieObjectArray);
+        super.onSaveInstanceState(outState);
     }
+
 
     private class RequestPopularMovies extends AsyncTask<String, Void, Void> {
         StringBuilder total = new StringBuilder();
@@ -128,31 +137,32 @@ public class MainActivity extends AppCompatActivity {
                     tempMovie.setReleaseDate(aTitle.getString(MOVIE_RELEASE_DATE));
                     tempMovie.setBackdrop(aTitle.getString(MOVIE_BACKDROP));
                     movieObjectArray.add(tempMovie);
-
-
                 }
                 connection.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            GridView gridview = (GridView) findViewById(R.id.gridview);
-            gridview.setAdapter(new ImageAdapter(MainActivity.this, moviePosterAddress));
-
-            gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View v,
-                                        int position, long id) {
-                    Movie movieDetails = movieObjectArray.get(position);
-                    Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
-                    i.putExtra("movieInfo", movieDetails);
-                    startActivity(i);
-                }
-            });
+            setupGrid();
         }
+    }
+
+    private void setupGrid() {
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(MainActivity.this, moviePosterAddress));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Movie movieDetails = movieObjectArray.get(position);
+                Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                i.putExtra("movieInfo", movieDetails);
+                startActivity(i);
+            }
+        });
     }
 }
