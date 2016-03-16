@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     tempMovie.setBackdrop(aTitle.getString(MOVIE_BACKDROP));
                     tempMovie.setMovieId(aTitle.getString(MOVIE_ID));
                     movieObjectArray.add(tempMovie);
+
                 }
                 connection.disconnect();
             } catch (Exception e) {
@@ -155,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 Movie movieDetails = movieObjectArray.get(position);
+                Log.e("movieID",movieObjectArray.get(position).getMovieId() );
                 Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 i.putExtra("movieInfo", movieDetails);
                 startActivity(i);
