@@ -112,13 +112,24 @@
             android:text="A bunch of random text right here for the mean time so that we can replace it later with the actual synopsis"
             android:textStyle="italic" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@android:color/white" />
+
         <TextView
             android:id="@+id/trailerLink"
             style="@style/appText"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoLink="all"
-            android:text="Trailer url here" />
+            android:gravity="center"
+            android:onClick="watchTrailer"
+            android:text="Watch the trailer!"
+            android:textSize="24sp" />
     </LinearLayout>
 
 </ScrollView>

@@ -1,10 +1,13 @@
 package com.example.android.popularmovies;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import java.net.URL;
 public class MovieDetailsActivity extends AppCompatActivity {
     Movie details = new Movie();
     JSONArray trailers;
+    String trailerLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +97,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 for (int i = 0; i < trailers.length(); i++) {
                     JSONObject trailer = trailers.getJSONObject(i);
                     firstTrailer = trailer.getString("key");
+                    trailerLink = firstTrailer;
                 }
                 Log.e("Trail", total.toString());
             } catch (Exception e) {
@@ -105,9 +110,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             TextView mTrailer = (TextView) findViewById(R.id.trailerLink);
-            mTrailer.setText("http://www.youtube.com/watch?v="+firstTrailer);
+            mTrailer.setVisibility(View.VISIBLE);
         }
 
 
+    }
+
+    public void watchTrailer (View v){
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+trailerLink)));
     }
 }
