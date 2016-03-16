@@ -103,7 +103,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -111,9 +110,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             TextView mTrailer = (TextView) findViewById(R.id.trailerLink);
             mTrailer.setVisibility(View.VISIBLE);
+            View t = findViewById(R.id.trailerButton);
+            t.setVisibility(View.VISIBLE);
         }
-
-
     }
 
     public void watchTrailer (View v){

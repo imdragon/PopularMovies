@@ -120,16 +120,29 @@
             android:layout_marginRight="32dp"
             android:background="@android:color/white" />
 
-        <TextView
-            android:id="@+id/trailerLink"
-            style="@style/appText"
-            android:visibility="invisible"
+        <LinearLayout
+            android:id="@+id/trailerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:onClick="watchTrailer"
-            android:text="Watch the trailer!"
-            android:textSize="24sp" />
+            android:gravity="center"
+            android:visibility="invisible"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_media_play" />
+
+            <TextView
+                android:id="@+id/trailerLink"
+                style="@style/appText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Watch the trailer!"
+                android:textSize="24sp"
+                 />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
