@@ -111,15 +111,9 @@ public class MainActivity extends AppCompatActivity {
                 while ((line = r.readLine()) != null) {
                     total.append(line);
                 }
-                // checking if getting back something
-                // REMOVE FOR FINAL!
-                Log.e("Response", total.toString());
-//// TODO: 3/8/2016 Clean up this section
                 //JSON section
                 popArray = new JSONObject(total.toString());
                 movies = popArray.getJSONArray(MOVIE_BLOCKS);
-                // REMOVE FOR FINAL!
-                Log.e("movie titles", movies.toString());
                 moviePosterAddress.clear();
                 movieObjectArray = new ArrayList<>();
                 // get movie poster filenames and put in an array

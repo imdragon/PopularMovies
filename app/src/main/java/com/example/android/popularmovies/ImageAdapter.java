@@ -1,6 +1,7 @@
 package com.example.android.popularmovies;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,18 +46,16 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(450, 675));
-//            imageView.setLayoutParams(new GridView.LayoutParams(800, 800));
-//            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-//            imageView.setPadding(8, 8, 8, 8);
+            imageView.setLayoutParams(new GridView.LayoutParams(-1, 585));
+            Picasso.with(mContext).load("http://image.tmdb.org/t/p/w185/" + moviePathString[position])
+                    .placeholder(R.drawable.comingsoon)
+                    .fit()
+                    .into(imageView);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setBackgroundColor(Color.CYAN);
         } else {
             imageView = (ImageView) convertView;
         }
-        //        moviePosterAddress.add(aTitle.getString(MOVIE_POSTER));
-        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w185/" + moviePathString[position])
-//                + "&sa=D&ust=1456543435696000&usg="
-//                + mContext.getResources().getString(R.string.apiKey))
-                .placeholder(R.drawable.comingsoon).into(imageView);
         Log.e("Url: ", "http://image.tmdb.org/t/p/w780/" + moviePathString[position]);
         return imageView;
     }

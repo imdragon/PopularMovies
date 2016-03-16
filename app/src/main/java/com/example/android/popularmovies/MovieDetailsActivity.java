@@ -25,7 +25,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mTitle.setShadowLayer(25, 0, 0, Color.BLACK);
 
         ImageView mBackdrop = (ImageView) findViewById(R.id.backdropImageView);
-        Picasso.with(this).load("http://image.tmdb.org/t/p/w780/"+details.getBackdrop()).into(mBackdrop);
+        Picasso.with(this).load("http://image.tmdb.org/t/p/w780/" + details.getBackdrop()).into(mBackdrop);
         Log.e("backdrop url", "http://image.tmdb.org/t/p/w780/" + details.getBackdrop());
         ImageView mPoster = (ImageView) findViewById(R.id.mPoster);
         Picasso.with(this).load("http://image.tmdb.org/t/p/w780/" + details.getPoster())
@@ -33,13 +33,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
         TextView mOverview = (TextView) findViewById(R.id.synopsis);
         mOverview.setText(details.getSynopsis());
         TextView mRelease = (TextView) findViewById(R.id.releaseDate);
-//        mRelease.setText(details.getReleaseDate());
-        mRelease.setText("Released: "+details.getReleaseDate().substring(0,4));
+        mRelease.setText("Released: " + details.getReleaseDate().substring(0, 4));
         TextView mRating = (TextView) findViewById(R.id.ratingDetail);
 
         RatingBar mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         mRatingBar.setRating(Float.valueOf(details.getRating()));
-        mRating.setText("Rating: "+details.getRating()+"/10");
+        mRating.setText("Rating: " + details.getRating() + "/10");
 
 
     }
