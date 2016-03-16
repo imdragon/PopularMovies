@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         final String MOVIE_OVERVIEW = "overview";
         final String MOVIE_RATING = "vote_average";
         final String MOVIE_RELEASE_DATE = "release_date";
+        final String MOVIE_ID = "id";
         final String MOVIE_RUNTIME = "runtime";
 
         @Override
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     tempMovie.setRating(aTitle.getString(MOVIE_RATING));
                     tempMovie.setReleaseDate(aTitle.getString(MOVIE_RELEASE_DATE));
                     tempMovie.setBackdrop(aTitle.getString(MOVIE_BACKDROP));
+                    tempMovie.setMovieId(aTitle.getString(MOVIE_ID));
                     movieObjectArray.add(tempMovie);
                 }
                 connection.disconnect();

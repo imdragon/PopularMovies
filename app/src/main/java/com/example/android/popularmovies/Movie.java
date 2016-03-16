@@ -10,6 +10,8 @@ public class Movie implements Parcelable {
     public String synopsis;
     public String releaseDate;
     public String rating;
+    public String backdrop;
+    public String movieId;
 
     public String getMovieId() {
         return movieId;
@@ -19,8 +21,6 @@ public class Movie implements Parcelable {
         this.movieId = movieId;
     }
 
-    public String movieId;
-
     public String getBackdrop() {
         return backdrop;
     }
@@ -28,8 +28,6 @@ public class Movie implements Parcelable {
     public void setBackdrop(String backdrop) {
         this.backdrop = backdrop;
     }
-
-    public String backdrop;
 
     public Movie() {
 
@@ -42,6 +40,7 @@ public class Movie implements Parcelable {
         releaseDate = in.readString();
         rating = in.readString();
         backdrop = in.readString();
+        movieId = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -97,13 +96,14 @@ public class Movie implements Parcelable {
     }
 
 
-    public Movie(String title, String poster, String synopsis, String releaseDate, String rating, String backdrop) {
+    public Movie(String title, String poster, String synopsis, String releaseDate, String rating, String backdrop, String movieId) {
         this.title = title;
         this.poster = poster;
         this.synopsis = synopsis;
         this.releaseDate = releaseDate;
         this.rating = rating;
         this.backdrop = backdrop;
+        this.movieId = movieId;
     }
 
 
