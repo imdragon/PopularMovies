@@ -28,7 +28,7 @@
         </activity>
 
         <provider
-            android:name=".PopularMoviesContentProvider"
+            android:name=".MoviesCP"
             android:authorities="com.example.popularmovies"
             android:enabled="true"
             android:exported="true"></provider>

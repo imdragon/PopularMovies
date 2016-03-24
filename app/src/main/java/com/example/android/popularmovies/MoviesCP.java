@@ -13,12 +13,11 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 
 import java.sql.SQLException;
-import java.util.regex.Matcher;
 
-public class PopularMoviesContentProvider extends ContentProvider {
-    public static final String LOG_TAG = PopDBHelper.class.getSimpleName();
+public class MoviesCP extends ContentProvider {
+    public static final String LOG_TAG = DBHelper.class.getSimpleName();
     public static UriMatcher uriMatcher = buildUriMatcher();
-    private PopDBHelper myHelper;
+    private DBHelper myHelper;
 
     public static final int MOVIE = 100;
     private static final int MOVIE_WITH_ID = 200;
@@ -26,10 +25,10 @@ public class PopularMoviesContentProvider extends ContentProvider {
     private static UriMatcher buildUriMatcher() {
         //following tutorial, using NO_MATCH for matcher
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        final String authority = PopMovieDBContract.CONTENT_AUTHORITY;
+        final String authority = MovDBContract.CONTENT_AUTHORITY;
         // adding matching code
-        matcher.addURI(authority, PopMovieDBContract.MovieEntry.TABLE_MOVIES, MOVIE);
-        matcher.addURI(authority, PopMovieDBContract.MovieEntry.TABLE_MOVIES + "/#", MOVIE_WITH_ID);
+        matcher.addURI(authority, MovDBContract.MovieEntry.TABLE_MOVIES, MOVIE);
+        matcher.addURI(authority, MovDBContract.MovieEntry.TABLE_MOVIES + "/#", MOVIE_WITH_ID);
 
         return matcher;
     }
@@ -62,7 +61,7 @@ public class PopularMoviesContentProvider extends ContentProvider {
      */
     @Override
     public boolean onCreate() {
-        myHelper = new PopDBHelper(getContext());
+        myHelper = new DBHelper(getContext());
         return true;
     }
 
@@ -128,13 +127,13 @@ public class PopularMoviesContentProvider extends ContentProvider {
 
         switch (uriMatcher.match(uri)) {
             case MOVIE: {
-                cursor = myHelper.getReadableDatabase().query(PopMovieDBContract.MovieEntry.TABLE_MOVIES,
+                cursor = myHelper.getReadableDatabase().query(MovDBContract.MovieEntry.TABLE_MOVIES,
                         projection, selection, selectionArgs, null, null, sortOrder);
                 return cursor;
             }
             case MOVIE_WITH_ID: {
-                cursor = myHelper.getReadableDatabase().query(PopMovieDBContract.MovieEntry.TABLE_MOVIES,
-                        projection, PopMovieDBContract.MovieEntry._ID + " = ?", new String[]{String.valueOf(ContentUris.parseId(uri))},
+                cursor = myHelper.getReadableDatabase().query(MovDBContract.MovieEntry.TABLE_MOVIES,
+                        projection, MovDBContract.MovieEntry._ID + " = ?", new String[]{String.valueOf(ContentUris.parseId(uri))},
                         null, null, sortOrder);
                 return cursor;
             }
@@ -171,9 +170,9 @@ public class PopularMoviesContentProvider extends ContentProvider {
 
         switch (match) {
             case MOVIE:
-                return PopMovieDBContract.MovieEntry.CONTENT_DIR_TYPE;
+                return MovDBContract.MovieEntry.CONTENT_DIR_TYPE;
             case MOVIE_WITH_ID:
-                return PopMovieDBContract.MovieEntry.CONTENT_DIR_TYPE;
+                return MovDBContract.MovieEntry.CONTENT_DIR_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -199,10 +198,10 @@ public class PopularMoviesContentProvider extends ContentProvider {
         Uri rUri;
         switch (uriMatcher.match(uri)) {
             case MOVIE: {
-                long _id = db.insert(PopMovieDBContract.MovieEntry.TABLE_MOVIES, null, values);
+                long _id = db.insert(MovDBContract.MovieEntry.TABLE_MOVIES, null, values);
                 // check for existing ID
                 if (_id > 0) {
-                    rUri = PopMovieDBContract.MovieEntry.buildMovieUri(_id);
+                    rUri = MovDBContract.MovieEntry.buildMovieUri(_id);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into: " + uri);
                 }
@@ -245,18 +244,18 @@ public class PopularMoviesContentProvider extends ContentProvider {
         switch (match) {
             case MOVIE:
                 numDel = db.delete(
-                        PopMovieDBContract.MovieEntry.TABLE_MOVIES, selection, selectionArgs);
+                        MovDBContract.MovieEntry.TABLE_MOVIES, selection, selectionArgs);
                 // reset _ID
                 db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" +
-                        PopMovieDBContract.MovieEntry.TABLE_MOVIES + "'");
+                        MovDBContract.MovieEntry.TABLE_MOVIES + "'");
                 break;
             case MOVIE_WITH_ID:
-                numDel = db.delete(PopMovieDBContract.MovieEntry.TABLE_MOVIES,
-                        PopMovieDBContract.MovieEntry._ID + " = ?",
+                numDel = db.delete(MovDBContract.MovieEntry.TABLE_MOVIES,
+                        MovDBContract.MovieEntry._ID + " = ?",
                         new String[]{String.valueOf(ContentUris.parseId(uri))});
                 // reset _ID
                 db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" +
-                        PopMovieDBContract.MovieEntry.TABLE_MOVIES + "'");
+                        MovDBContract.MovieEntry.TABLE_MOVIES + "'");
 
                 break;
             default:
@@ -295,16 +294,16 @@ public class PopularMoviesContentProvider extends ContentProvider {
 
         switch (uriMatcher.match(uri)) {
             case MOVIE: {
-                numUpdated = db.update(PopMovieDBContract.MovieEntry.TABLE_MOVIES,
+                numUpdated = db.update(MovDBContract.MovieEntry.TABLE_MOVIES,
                         values,
                         selection,
                         selectionArgs);
                 break;
             }
             case MOVIE_WITH_ID: {
-                numUpdated = db.update(PopMovieDBContract.MovieEntry.TABLE_MOVIES,
+                numUpdated = db.update(MovDBContract.MovieEntry.TABLE_MOVIES,
                         values,
-                        PopMovieDBContract.MovieEntry._ID + " = ?",
+                        MovDBContract.MovieEntry._ID + " = ?",
                         new String[]{String.valueOf(ContentUris.parseId(uri))});
                 break;
             }

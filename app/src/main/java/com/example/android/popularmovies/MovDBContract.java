@@ -6,7 +6,7 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-public class PopMovieDBContract {
+public class MovDBContract {
     public static final String CONTENT_AUTHORITY = "com.example.android.popularmovies.app";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
