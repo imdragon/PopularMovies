@@ -3,6 +3,7 @@ package com.example.android.popularmovies;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = DBHelper.class.getSimpleName();
@@ -36,8 +37,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_MOVIES_TABLE = "CREATE TABLE " +
-                MovDBContract.MovieEntry.TABLE_MOVIES + "(" + MovDBContract.MovieEntry._ID +
-                " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                MovDBContract.MovieEntry.TABLE_MOVIES + "(" +
+                MovDBContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 MovDBContract.MovieEntry.COLUMN_MOVIEID + " TEXT NOT NULL, " +
                 MovDBContract.MovieEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 MovDBContract.MovieEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
@@ -70,6 +71,16 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+// copied from gist
 
+        Log.w(LOG_TAG, "Upgrading database from version " + oldVersion + " to " +
+                newVersion + ". OLD DATA WILL BE DESTROYED");
+        // Drop the table
+        db.execSQL("DROP TABLE IF EXISTS " + MovDBContract.MovieEntry.TABLE_MOVIES);
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" +
+                MovDBContract.MovieEntry.TABLE_MOVIES + "'");
+
+        // re-create database
+        onCreate(db);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.android.popularmovies;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -117,12 +119,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
     }
 
-    public void addFavorite(View v){
+    public void addFavorite(View v) {
+        ContentValues fav = new ContentValues();
 
+        fav.put(MovDBContract.MovieEntry.COLUMN_MOVIEID, details.getMovieId());
+        fav.put(MovDBContract.MovieEntry.COLUMN_TITLE, details.getTitle());
+        fav.put(MovDBContract.MovieEntry.COLUMN_DESCRIPTION, details.getSynopsis());
+        fav.put(MovDBContract.MovieEntry.COLUMN_FAVORITE, "favorite");
+
+
+        getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
+        Toast.makeText(this, fav.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    public void watchTrailer (View v){
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+trailerLink)));
+    public void watchTrailer(View v) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + trailerLink)));
     }
 }
 

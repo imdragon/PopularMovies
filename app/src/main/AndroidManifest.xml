@@ -29,7 +29,7 @@
 
         <provider
             android:name=".MoviesCP"
-            android:authorities="com.example.popularmovies"
+            android:authorities="com.example.android.popularmovies"
             android:enabled="true"
             android:exported="true"></provider>
     </application>
