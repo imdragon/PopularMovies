@@ -117,6 +117,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
     }
 
+    public void addFavorite(View v){
+
+    }
+
     public void watchTrailer (View v){
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+trailerLink)));
     }
