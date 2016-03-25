@@ -17,18 +17,20 @@ public class Favorites extends AppCompatActivity {
         setContentView(R.layout.activity_favorites);
         String[] mProjection = {
                 MovDBContract.MovieEntry.COLUMN_TITLE,
-                MovDBContract.MovieEntry.COLUMN_MOVIEID};
+                MovDBContract.MovieEntry.COLUMN_MOVIEID,
+                MovDBContract.MovieEntry.COLUMN_DESCRIPTION,
+                MovDBContract.MovieEntry.COLUMN_FAVORITE
+        };
         Cursor cs = getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, mProjection, null, null, null);
 
-StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         if (cs == null) {
-            Log.e("Output: ", String.valueOf(cs.getCount()));
+            Log.e("Output:", String.valueOf(cs.getCount()));
         } else {
             cs.moveToFirst();
             while (cs.moveToNext()) {
-//                Log.w("...Provider...", cs.getString(0) + "-" + cs.getString(1) + "-" + cs.getString(2));
-                Log.w("...Provider...", cs.getString(0) + "-"+ cs.getString(1));
-                sb.append(cs.getString(0) + " - "+ cs.getString(1)+"\n");
+                Log.w("...Provider...", cs.getString(0) + "-" + cs.getString(1));
+                sb.append(cs.getString(0)).append(" - ").append(cs.getString(1)).append("\n - ").append(cs.getString(2)).append(" - ").append(cs.getString(3)).append("\n===================\n");
             }
             TextView tt = (TextView) findViewById(R.id.output);
             tt.setText(sb.toString());

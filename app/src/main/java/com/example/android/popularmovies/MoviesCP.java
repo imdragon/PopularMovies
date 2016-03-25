@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 
@@ -195,7 +196,7 @@ public class MoviesCP extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         final SQLiteDatabase db = myHelper.getWritableDatabase();
-        Uri rUri;
+        Uri rUri = null;
         switch (uriMatcher.match(uri)) {
             case MOVIE: {
                 long _id = db.insert(MovDBContract.MovieEntry.TABLE_MOVIES, null, values);
@@ -203,7 +204,7 @@ public class MoviesCP extends ContentProvider {
                 if (_id > 0) {
                     rUri = MovDBContract.MovieEntry.buildMovieUri(_id);
                 } else {
-                    throw new android.database.SQLException("Failed to insert row into: " + uri);
+//                    throw new android.database.SQLException("Failed to insert row into: " + uri);
                 }
                 break;
             }
