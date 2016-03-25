@@ -19,6 +19,9 @@ public class MovDBContract {
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_DESCRIPTION = "synopsis";
         public static final String COLUMN_POSTER = "poster";
+        public static final String COLUMN_BACKDROP = "backdrop";
+        public static final String COLUMN_RATING = "rating";
+        public static final String COLUMN_RELEASE = "release";
         public static final String COLUMN_FAVORITE = "isFavorite";
 
         // Content Uri section

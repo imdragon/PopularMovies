@@ -3,6 +3,7 @@ package com.example.android.popularmovies;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
                     if (which == 0) {
                         new RequestPopularMovies().execute("popularity.desc", null, null);
                         // popularity.desc
-                    } else {
+                    }
+                    if (which == 1) {
                         // below request shows by highest rating for US movies
                         new RequestPopularMovies().execute("certification_country=US&sort_by=vote_average.desc&vote_count.gte=1000", null, null);
                         // rating.desc
@@ -65,11 +67,57 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog pop = builder.create();
             pop.show();
         }
-        if (item.getItemId() == R.id.Favorites){
-            startActivity(new Intent(this, Favorites.class));
+        if (item.getItemId() == R.id.Favorites) {
+//            startActivity(new Intent(this, Favorites.class));
+            favoriteLayout();
         }
+
         return super.onOptionsItemSelected(item);
     }
+
+    public void favoriteLayout() {
+        movieObjectArray.clear();
+        moviePosterAddress.clear();
+        String[] mProjection = {
+                MovDBContract.MovieEntry.COLUMN_TITLE,
+                MovDBContract.MovieEntry.COLUMN_MOVIEID,
+                MovDBContract.MovieEntry.COLUMN_DESCRIPTION,
+                MovDBContract.MovieEntry.COLUMN_POSTER,
+                MovDBContract.MovieEntry.COLUMN_BACKDROP,
+                MovDBContract.MovieEntry.COLUMN_RATING,
+                MovDBContract.MovieEntry.COLUMN_RELEASE,
+                MovDBContract.MovieEntry.COLUMN_FAVORITE
+        };
+          /*    0 Title
+                1 MovieID
+                2 Synopsis
+                3 Poster
+                4 Backdrop
+                5 Rating
+                6 Release
+                7 favorite <--- probably don't need it
+                 */
+        Cursor cs = getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, mProjection, null, null, null);
+        if (cs == null) {
+            Log.e("Output:", String.valueOf(cs.getCount()));
+        } else {
+            cs.moveToFirst();
+            while (cs.moveToNext()) {
+                moviePosterAddress.add(cs.getString(3));
+                Movie tempMovie = new Movie();
+                tempMovie.setTitle(cs.getString(0));
+                tempMovie.setPoster(cs.getString(3));
+                tempMovie.setSynopsis(cs.getString(2));
+                tempMovie.setRating(cs.getString(5));
+                tempMovie.setReleaseDate(cs.getString(6));
+                tempMovie.setBackdrop(cs.getString(4));
+                tempMovie.setMovieId(cs.getString(1));
+                movieObjectArray.add(tempMovie);
+            }
+            setupGrid();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,6 +132,22 @@ public class MainActivity extends AppCompatActivity {
         outState.putStringArrayList("posters", moviePosterAddress);
         outState.putParcelableArrayList("movies", movieObjectArray);
         super.onSaveInstanceState(outState);
+    }
+
+    private void setupGrid() {
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(MainActivity.this, moviePosterAddress));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Movie movieDetails = movieObjectArray.get(position);
+                Log.e("movieID", movieObjectArray.get(position).getMovieId());
+                Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                i.putExtra("movieInfo", movieDetails);
+                startActivity(i);
+            }
+        });
     }
 
 
@@ -149,21 +213,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             setupGrid();
         }
-    }
 
-    private void setupGrid() {
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(MainActivity.this, moviePosterAddress));
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Movie movieDetails = movieObjectArray.get(position);
-                Log.e("movieID",movieObjectArray.get(position).getMovieId() );
-                Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
-                i.putExtra("movieInfo", movieDetails);
-                startActivity(i);
-            }
-        });
     }
 }
+
+

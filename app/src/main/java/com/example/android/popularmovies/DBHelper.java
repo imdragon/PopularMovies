@@ -43,6 +43,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 MovDBContract.MovieEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 MovDBContract.MovieEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 MovDBContract.MovieEntry.COLUMN_POSTER + " TEXT NOT NULL, " +
+                MovDBContract.MovieEntry.COLUMN_BACKDROP + " TEXT NOT NULL, " +
+                MovDBContract.MovieEntry.COLUMN_RATING + " TEXT NOT NULL, " +
+                MovDBContract.MovieEntry.COLUMN_RELEASE + " TEXT NOT NULL, " +
                 MovDBContract.MovieEntry.COLUMN_FAVORITE +
                 " INTEGER NOT NULL);";
 
