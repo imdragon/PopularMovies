@@ -129,9 +129,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
 
         Uri rUri = getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
-        Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
+        if (rUri == null) {
+            Toast.makeText(this, "Already marked as Favorite!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
-
     public void watchTrailer(View v) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + trailerLink)));
     }
