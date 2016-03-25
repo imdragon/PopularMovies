@@ -18,6 +18,7 @@ public class MovDBContract {
         public static final String COLUMN_MOVIEID = "apiID";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_DESCRIPTION = "synopsis";
+        public static final String COLUMN_POSTER = "poster";
         public static final String COLUMN_FAVORITE = "isFavorite";
 
         // Content Uri section

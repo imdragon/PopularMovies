@@ -125,6 +125,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         fav.put(MovDBContract.MovieEntry.COLUMN_MOVIEID, details.getMovieId());
         fav.put(MovDBContract.MovieEntry.COLUMN_TITLE, details.getTitle());
         fav.put(MovDBContract.MovieEntry.COLUMN_DESCRIPTION, details.getSynopsis());
+        fav.put(MovDBContract.MovieEntry.COLUMN_POSTER, details.getPoster());
         fav.put(MovDBContract.MovieEntry.COLUMN_FAVORITE, "favorite");
 
 

@@ -39,9 +39,10 @@ public class DBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_MOVIES_TABLE = "CREATE TABLE " +
                 MovDBContract.MovieEntry.TABLE_MOVIES + "(" +
                 MovDBContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                MovDBContract.MovieEntry.COLUMN_MOVIEID + " TEXT NOT NULL, " +
+                MovDBContract.MovieEntry.COLUMN_MOVIEID + " TEXT NOT NULL UNIQUE, " +
                 MovDBContract.MovieEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 MovDBContract.MovieEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+                MovDBContract.MovieEntry.COLUMN_POSTER + " TEXT NOT NULL, " +
                 MovDBContract.MovieEntry.COLUMN_FAVORITE +
                 " INTEGER NOT NULL);";
 
