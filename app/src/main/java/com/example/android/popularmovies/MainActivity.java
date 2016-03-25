@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog pop = builder.create();
             pop.show();
         }
+        if (item.getItemId() == R.id.Favorites){
+            startActivity(new Intent(this, Favorites.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 

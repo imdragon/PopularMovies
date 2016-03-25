@@ -31,7 +31,12 @@
             android:name=".MoviesCP"
             android:authorities="com.example.android.popularmovies"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
+
+        <activity
+            android:name=".Favorites"
+            android:label="@string/title_activity_favorites"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

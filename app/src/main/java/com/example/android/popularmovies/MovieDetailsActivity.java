@@ -128,8 +128,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         fav.put(MovDBContract.MovieEntry.COLUMN_FAVORITE, "favorite");
 
 
-        getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
-        Toast.makeText(this, fav.toString(), Toast.LENGTH_SHORT).show();
+        Uri rUri = getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
+        Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
     }
 
     public void watchTrailer(View v) {
