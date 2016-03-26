@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
                         // rating.desc
                     }
                     if (which == 2) {
-                        DBHelper dbHelper = new DBHelper(getApplicationContext());
-                        SQLiteDatabase db = dbHelper.getWritableDatabase();
-                        db.delete(MovDBContract.MovieEntry.TABLE_MOVIES, null, null);
+                       int newCount= getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
+                       Toast.makeText(MainActivity.this, String.valueOf(newCount), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

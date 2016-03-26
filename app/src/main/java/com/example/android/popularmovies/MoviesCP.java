@@ -257,7 +257,6 @@ public class MoviesCP extends ContentProvider {
                 // reset _ID
                 db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" +
                         MovDBContract.MovieEntry.TABLE_MOVIES + "'");
-
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
