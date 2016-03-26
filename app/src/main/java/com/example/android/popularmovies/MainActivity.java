@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
                         // rating.desc
                     }
                     if (which == 2) {
-                       int newCount= getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
-                       Toast.makeText(MainActivity.this, String.valueOf(newCount), Toast.LENGTH_SHORT).show();
+                        int newCount = getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
+                        Toast.makeText(MainActivity.this, String.valueOf(newCount), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -74,10 +74,8 @@ public class MainActivity extends AppCompatActivity {
             pop.show();
         }
         if (item.getItemId() == R.id.Favorites) {
-//            startActivity(new Intent(this, Favorites.class));
             favoriteLayout();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -101,8 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 4 Backdrop
                 5 Rating
                 6 Release
-                7 favorite <--- probably don't need it
-                 */
+                7 favorite <--- probably don't need it */
         Cursor cs = getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, mProjection, null, null, null);
         if (cs == null) {
             Log.e("Output:", String.valueOf(cs.getCount()));

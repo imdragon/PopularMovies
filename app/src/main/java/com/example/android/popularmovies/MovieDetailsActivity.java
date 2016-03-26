@@ -2,6 +2,7 @@ package com.example.android.popularmovies;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.test.mock.MockContentProvider;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     Movie details = new Movie();
     JSONArray trailers;
     String trailerLink;
+    Button fButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +57,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mRelease.setText("Released: " + details.getReleaseDate().substring(0, 4));
         TextView mRating = (TextView) findViewById(R.id.ratingDetail);
 
+        fButton = (Button) findViewById(R.id.favButton);
+
         RatingBar mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         mRatingBar.setRating(Float.valueOf(details.getRating()));
         mRating.setText("Rating: " + details.getRating() + "/10");
         new getTrailer().execute(details.getMovieId(), null, null);
+        favoriteCheck();
     }
 
     private class getTrailer extends AsyncTask<String, Void, Void> {
@@ -138,7 +144,31 @@ public class MovieDetailsActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
         }
+
+        fButton.setBackgroundColor(Color.YELLOW);
+        fButton.setText("Favorite!");
     }
+
+    private Boolean favoriteCheck() {
+        Log.e("Movie ID: ", details.getMovieId());
+        Boolean flag = false;
+        Cursor cs = getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, new String[]{MovDBContract.MovieEntry.COLUMN_MOVIEID}, null, null, null);
+        if (cs == null) {
+            return flag;
+        } else {
+            while (cs.moveToNext()) {
+                if (cs.getString(0).equals(details.getMovieId())) {
+                    fButton.setBackgroundColor(Color.YELLOW);
+                    fButton.setText("Favorite!");
+                    flag = true;
+                } else {
+                    flag = false;
+                }
+            }
+        }
+        return flag;
+    }
+
     public void watchTrailer(View v) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + trailerLink)));
     }
