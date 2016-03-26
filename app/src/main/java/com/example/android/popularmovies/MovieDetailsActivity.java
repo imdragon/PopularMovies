@@ -86,11 +86,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
          */
         @Override
         protected Void doInBackground(String... params) {
-
-
-            try
-
-            {
+            try {
                 URL url = new URL("http://api.themoviedb.org/3/movie/" + params[0] + "/videos?api_key=" + getResources().getString(R.string.apiKey));
                 // making url request and sending it to be read
                 Log.e("my url is", String.valueOf(url));
@@ -126,31 +122,31 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     public void addFavorite(View v) {
-        ContentValues fav = new ContentValues();
+        if (!favoriteCheck()) {
+            ContentValues fav = new ContentValues();
 
-        fav.put(MovDBContract.MovieEntry.COLUMN_MOVIEID, details.getMovieId());
-        fav.put(MovDBContract.MovieEntry.COLUMN_TITLE, details.getTitle());
-        fav.put(MovDBContract.MovieEntry.COLUMN_DESCRIPTION, details.getSynopsis());
-        fav.put(MovDBContract.MovieEntry.COLUMN_POSTER, details.getPoster());
-        fav.put(MovDBContract.MovieEntry.COLUMN_BACKDROP, details.getBackdrop());
-        fav.put(MovDBContract.MovieEntry.COLUMN_RATING, details.getRating());
-        fav.put(MovDBContract.MovieEntry.COLUMN_RELEASE, details.getReleaseDate());
-        fav.put(MovDBContract.MovieEntry.COLUMN_FAVORITE, "favorite");
+            fav.put(MovDBContract.MovieEntry.COLUMN_MOVIEID, details.getMovieId());
+            fav.put(MovDBContract.MovieEntry.COLUMN_TITLE, details.getTitle());
+            fav.put(MovDBContract.MovieEntry.COLUMN_DESCRIPTION, details.getSynopsis());
+            fav.put(MovDBContract.MovieEntry.COLUMN_POSTER, details.getPoster());
+            fav.put(MovDBContract.MovieEntry.COLUMN_BACKDROP, details.getBackdrop());
+            fav.put(MovDBContract.MovieEntry.COLUMN_RATING, details.getRating());
+            fav.put(MovDBContract.MovieEntry.COLUMN_RELEASE, details.getReleaseDate());
+            fav.put(MovDBContract.MovieEntry.COLUMN_FAVORITE, "favorite");
 
+            Uri rUri = getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
+            if (rUri == null) {
+                Toast.makeText(this, "Already marked as Favorite!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
+            }
 
-        Uri rUri = getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
-        if (rUri == null) {
-            Toast.makeText(this, "Already marked as Favorite!", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
+            fButton.setBackgroundColor(Color.YELLOW);
+            fButton.setText("Favorite!");
         }
-
-        fButton.setBackgroundColor(Color.YELLOW);
-        fButton.setText("Favorite!");
     }
 
     private Boolean favoriteCheck() {
-        Log.e("Movie ID: ", details.getMovieId());
         Boolean flag = false;
         Cursor cs = getContentResolver().query(MovDBContract.MovieEntry.CONTENT_URI, new String[]{MovDBContract.MovieEntry.COLUMN_MOVIEID}, null, null, null);
         if (cs == null) {
