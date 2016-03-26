@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -62,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
                         new RequestPopularMovies().execute("certification_country=US&sort_by=vote_average.desc&vote_count.gte=1000", null, null);
                         // rating.desc
                     }
+                    if (which == 2) {
+                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+                        db.delete(MovDBContract.MovieEntry.TABLE_MOVIES, null, null);
+                    }
                 }
             });
             AlertDialog pop = builder.create();
@@ -101,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         if (cs == null) {
             Log.e("Output:", String.valueOf(cs.getCount()));
         } else {
-            cs.moveToFirst();
             while (cs.moveToNext()) {
                 moviePosterAddress.add(cs.getString(3));
                 Movie tempMovie = new Movie();
