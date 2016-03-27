@@ -59,19 +59,22 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (which == 0) {
+                        setTitle("Most Popular");
                         new RequestPopularMovies().execute("popularity.desc", null, null);
                         // popularity.desc
                     }
                     if (which == 1) {
+                        setTitle("Highest Rated");
                         // below request shows by highest rating for US movies
                         new RequestPopularMovies().execute("certification_country=US&sort_by=vote_average.desc&vote_count.gte=1000", null, null);
                         // rating.desc
                     }
                     if (which == 2) {
-                        int newCount = getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
-                        Toast.makeText(MainActivity.this, String.valueOf(newCount), Toast.LENGTH_SHORT).show();
-                        // here to refresh the gridview when delete all
-//                        favoriteLayout();
+//                        int newCount = getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
+//                        Toast.makeText(MainActivity.this, String.valueOf(newCount), Toast.LENGTH_SHORT).show();
+//                        // here to refresh the gridview when delete all
+                        setTitle("My Favorites");
+                        favoriteLayout();
                     }
                 }
             });

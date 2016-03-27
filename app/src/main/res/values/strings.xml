@@ -7,7 +7,7 @@
     <array name="sortOptionArray">
         <item>Popularity</item>
         <item>Highest Rated</item>
-        <item>Delete Favorites</item>
+        <item>My Favorites</item>
     </array>
     <string name="title_activity_movie_details">MovieDetailsActivity</string>
     <string name="title_activity_favorites">Favorites</string>
