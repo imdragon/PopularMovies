@@ -31,11 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private JSONObject popArray;
     private JSONArray movies;
     private ArrayList<Movie> movieObjectArray;
+    GridView gridview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        gridview = (GridView) findViewById(R.id.gridview);
+
         if (savedInstanceState == null) {
             new RequestPopularMovies().execute("popularity.desc", null, null);
             Log.e("WAS NULL", "WAS NULL");
@@ -67,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                     if (which == 2) {
                         int newCount = getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
                         Toast.makeText(MainActivity.this, String.valueOf(newCount), Toast.LENGTH_SHORT).show();
+                        // here to refresh the gridview when delete all
+                        favoriteLayout();
                     }
                 }
             });
@@ -137,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupGrid() {
-        GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(MainActivity.this, moviePosterAddress));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
