@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.test.mock.MockContentProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +23,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.ContentHandler;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -122,7 +120,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     public void addFavorite(View v) {
-        if (favoriteCheck() == false) {
+        Boolean fCheck = favoriteCheck();
+        if (!fCheck) {
             ContentValues fav = new ContentValues();
 
             fav.put(MovDBContract.MovieEntry.COLUMN_MOVIEID, details.getMovieId());
@@ -137,7 +136,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             Uri rUri = getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
             if (rUri == null) {
                 Toast.makeText(this, "Already marked as Favorite!", Toast.LENGTH_SHORT).show();
-                removeFavourite();
+                removeFavorite();
             } else {
                 Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
             }
@@ -145,6 +144,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
             fButton.setBackgroundColor(Color.YELLOW);
             fButton.setText("Favorite!");
 
+        }
+        else {
+            removeFavorite();
         }
     }
 
@@ -167,7 +169,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         return flag;
     }
 
-    private void removeFavourite(){
+    private void removeFavorite(){
         getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, MovDBContract.MovieEntry.COLUMN_MOVIEID+"=?", new String[]{details.getMovieId()});
         fButton.setText("Mark as favourite");
         fButton.setBackgroundColor(Color.CYAN);
