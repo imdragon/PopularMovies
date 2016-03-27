@@ -122,7 +122,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     public void addFavorite(View v) {
-        if (!favoriteCheck()) {
+        if (favoriteCheck() == false) {
             ContentValues fav = new ContentValues();
 
             fav.put(MovDBContract.MovieEntry.COLUMN_MOVIEID, details.getMovieId());
@@ -137,12 +137,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
             Uri rUri = getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
             if (rUri == null) {
                 Toast.makeText(this, "Already marked as Favorite!", Toast.LENGTH_SHORT).show();
+                removeFavourite();
             } else {
                 Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
             }
 
             fButton.setBackgroundColor(Color.YELLOW);
             fButton.setText("Favorite!");
+
         }
     }
 
@@ -163,6 +165,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         }
         return flag;
+    }
+
+    private void removeFavourite(){
+        getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, MovDBContract.MovieEntry.COLUMN_MOVIEID+"=?", new String[]{details.getMovieId()});
+        fButton.setText("Mark as favourite");
+        fButton.setBackgroundColor(Color.CYAN);
     }
 
     public void watchTrailer(View v) {

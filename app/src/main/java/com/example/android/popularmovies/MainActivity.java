@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         int newCount = getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
                         Toast.makeText(MainActivity.this, String.valueOf(newCount), Toast.LENGTH_SHORT).show();
                         // here to refresh the gridview when delete all
-                        favoriteLayout();
+//                        favoriteLayout();
                     }
                 }
             });
