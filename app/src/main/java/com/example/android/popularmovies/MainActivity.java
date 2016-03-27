@@ -1,6 +1,7 @@
 package com.example.android.popularmovies;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -70,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
                         // rating.desc
                     }
                     if (which == 2) {
-//                        int newCount = getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
-//                        Toast.makeText(MainActivity.this, String.valueOf(newCount), Toast.LENGTH_SHORT).show();
-//                        // here to refresh the gridview when delete all
                         setTitle("My Favorites");
                         favoriteLayout();
                     }
@@ -81,8 +79,35 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog pop = builder.create();
             pop.show();
         }
-        if (item.getItemId() == R.id.Favorites) {
-            favoriteLayout();
+        if (item.getItemId() == R.id.deleteAllFavorites) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Delete all favorites?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                /**
+                 * This method will be invoked when a button in the dialog is clicked.
+                 *
+                 * @param dialog The dialog that received the click.
+                 * @param which  The button that was clicked (e.g.
+                 *               {@link DialogInterface#BUTTON1}) or the position
+                 */
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, null, null);
+                }
+            }).setNegativeButton("NO!", new DialogInterface.OnClickListener() {
+                /**
+                 * This method will be invoked when a button in the dialog is clicked.
+                 *
+                 * @param dialog The dialog that received the click.
+                 * @param which  The button that was clicked (e.g.
+                 *               {@link DialogInterface#BUTTON1}) or the position
+                 */
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            AlertDialog pop = builder.create();
+            pop.show();
         }
         return super.onOptionsItemSelected(item);
     }

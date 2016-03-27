@@ -165,7 +165,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void removeFavorite() {
         getContentResolver().delete(MovDBContract.MovieEntry.CONTENT_URI, MovDBContract.MovieEntry.COLUMN_MOVIEID + "=?", new String[]{details.getMovieId()});
-        fButton.setText("Mark as\nfavourite");
+        fButton.setText("Mark as\nfavorite");
         fButton.setBackgroundColor(Color.CYAN);
 
     }
