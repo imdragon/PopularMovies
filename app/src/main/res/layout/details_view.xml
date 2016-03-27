@@ -98,7 +98,7 @@
                     android:id="@+id/favButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/holo_blue_bright"
+                    android:background="#00ffff"
                     android:text="Mark as\nFavorite"
                     android:onClick="addFavorite"/>
 
