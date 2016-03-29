@@ -168,7 +168,7 @@
             android:layout_height="200dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:divider="@android:color/holo_orange_dark"
+            android:divider="@drawable/line"
             android:dividerHeight="1dp" />
 
     </LinearLayout>
