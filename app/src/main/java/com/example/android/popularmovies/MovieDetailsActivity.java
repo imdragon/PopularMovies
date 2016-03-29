@@ -9,11 +9,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,12 +28,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     Movie details = new Movie();
     JSONArray trailers;
     String trailerLink;
     Button fButton;
+    ArrayList<String> sample = new ArrayList<String>();
+    ArrayAdapter<String> rAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +44,33 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.details_view);
         details = getIntent().getParcelableExtra("movieInfo");
 
+        sample.add("sample 1");
+        sample.add("sample 2");
+        sample.add("sample 3");
+        sample.add("sample 4");
+        sample.add("sample 5");
+        sample.add("sample 6");
+        rAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sample);
+        ListView reviewsList = (ListView) findViewById(R.id.reviewsListView);
+        reviewsList.setOnTouchListener(new View.OnTouchListener() {
+            /**
+             * Called when a touch event is dispatched to a view. This allows listeners to
+             * get a chance to respond before the target view.
+             *
+             * @param v     The view the touch event has been dispatched to.
+             * @param event The MotionEvent object containing full information about
+             *              the event.
+             * @return True if the listener has consumed the event, false otherwise.
+             */
+            @Override
 
-        TextView mTitle = (TextView) findViewById(R.id.original_title_detail);
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+        reviewsList.setAdapter(rAdapter);
+                TextView mTitle = (TextView) findViewById(R.id.original_title_detail);
         mTitle.setText(details.getTitle());
         mTitle.setShadowLayer(25, 0, 0, Color.BLACK);
 
@@ -62,13 +91,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
         RatingBar mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         mRatingBar.setRating(Float.valueOf(details.getRating()));
         mRating.setText("Rating: " + details.getRating() + "/10");
-        new getTrailer().execute(details.getMovieId(), null, null);
+        new getTrailerOrReview().execute(details.getMovieId(), null, null);
         favoriteCheck();
     }
 
-    private class getTrailer extends AsyncTask<String, Void, Void> {
+    private class getTrailerOrReview extends AsyncTask<String, Void, Void> {
         StringBuilder total = new StringBuilder();
         String firstTrailer;
+
 
         /**
          * Override this method to perform a computation on a background thread. The
@@ -87,7 +117,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
             try {
-                URL url = new URL("http://api.themoviedb.org/3/movie/" + params[0] + "/videos?api_key=" + getResources().getString(R.string.apiKey));
+                URL url = new URL("http://api.themoviedb.org/3/movie/" + params[0] + "/"+params[1]+"?api_key=" + getResources().getString(R.string.apiKey));
                 // making url request and sending it to be read
                 Log.e("my url is", String.valueOf(url));
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
