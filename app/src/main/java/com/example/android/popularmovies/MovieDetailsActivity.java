@@ -44,8 +44,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.details_view);
         details = getIntent().getParcelableExtra("movieInfo");
 
-        sample.add("sample 1");
-        sample.add("sample 2");
+        sample.add("Interesting film with an exceptional cast, fantastic performances and characterizations. The story, though, is a bit difficult to follow and, in the end, seems to not have a real point.");
+        sample.add("Cloud Atlas was a very well made movie but unlike most of the \"simultaneous stories that all come together at the end\" type of movies, this one just didn't. I'm still unclear as to the point of it all.\r\n\r\nAnother issue I had was a general feeling of goofiness. Sure, the Cavendish story was pure comedy but the rest of the stories just didn't feel serious enough to me.\r\n\r\nIt carried my attention for the 172 minutes well enough and it was entertaining. I just expected more of a pay off at the end.\r\n\r\nAll in all, it's definitely worth seeing but I still haven't made up my mind if I truly liked it or not. What did you think?");
         sample.add("sample 3");
         sample.add("sample 4");
         sample.add("sample 5");

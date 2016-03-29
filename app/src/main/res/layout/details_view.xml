@@ -144,18 +144,32 @@
                 android:text="Watch the trailer!"
                 android:textSize="24sp" />
 
-        </LinearLayout><View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="8dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:background="@android:color/white" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@android:color/white" />
+
+        <TextView
+            style="@style/appText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Reviews"
+            android:textSize="24sp" />
+
         <ListView
             android:id="@+id/reviewsListView"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:divider="@android:color/holo_orange_dark"
+            android:dividerHeight="1dp" />
 
     </LinearLayout>
 
