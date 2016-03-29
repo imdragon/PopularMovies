@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,20 +21,14 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     Movie details = new Movie();
-    JSONArray trailers;
     String trailerLink;
     Button fButton;
-    ArrayList<String> sample = new ArrayList<String>();
+    ArrayList<String> reviews = new ArrayList<String>();
     ArrayAdapter<String> rAdapter;
 
     @Override
@@ -43,14 +36,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_view);
         details = getIntent().getParcelableExtra("movieInfo");
-
-        sample.add("Interesting film with an exceptional cast, fantastic performances and characterizations. The story, though, is a bit difficult to follow and, in the end, seems to not have a real point.");
-        sample.add("Cloud Atlas was a very well made movie but unlike most of the \"simultaneous stories that all come together at the end\" type of movies, this one just didn't. I'm still unclear as to the point of it all.\r\n\r\nAnother issue I had was a general feeling of goofiness. Sure, the Cavendish story was pure comedy but the rest of the stories just didn't feel serious enough to me.\r\n\r\nIt carried my attention for the 172 minutes well enough and it was entertaining. I just expected more of a pay off at the end.\r\n\r\nAll in all, it's definitely worth seeing but I still haven't made up my mind if I truly liked it or not. What did you think?");
-        sample.add("sample 3");
-        sample.add("sample 4");
-        sample.add("sample 5");
-        sample.add("sample 6");
-        rAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sample);
+        rAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reviews);
         ListView reviewsList = (ListView) findViewById(R.id.reviewsListView);
         reviewsList.setOnTouchListener(new View.OnTouchListener() {
             /**
@@ -91,7 +77,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         RatingBar mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         mRatingBar.setRating(Float.valueOf(details.getRating()));
         mRating.setText("Rating: " + details.getRating() + "/10");
-        new getTrailerOrReviews(this).execute(details.getMovieId(), null, null);
+        new getTrailerOrReviews(this).execute(0, null, null);
         favoriteCheck();
     }
 
