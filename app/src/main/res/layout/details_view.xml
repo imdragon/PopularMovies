@@ -124,18 +124,17 @@
             android:background="@android:color/white" />
 
 
-
-            <TextView
-                android:id="@+id/trailerLink"
-                style="@style/appText"
-                android:visibility="invisible"
-                android:layout_gravity="center"
-                android:onClick="watchTrailer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Watch the trailer!"
-                android:drawableLeft="@android:drawable/ic_media_play"
-                android:textSize="24sp" />
+        <TextView
+            android:id="@+id/trailerLink"
+            style="@style/appText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@android:drawable/ic_media_play"
+            android:onClick="watchTrailer"
+            android:text="Watch the trailer!"
+            android:textSize="24sp"
+            android:visibility="invisible" />
 
 
         <View

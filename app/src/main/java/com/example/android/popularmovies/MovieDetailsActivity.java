@@ -20,8 +20,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -56,7 +54,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         });
         reviewsList.setAdapter(rAdapter);
-                TextView mTitle = (TextView) findViewById(R.id.original_title_detail);
+        TextView mTitle = (TextView) findViewById(R.id.original_title_detail);
         mTitle.setText(details.getTitle());
         mTitle.setShadowLayer(25, 0, 0, Color.BLACK);
 
@@ -81,81 +79,27 @@ public class MovieDetailsActivity extends AppCompatActivity {
         favoriteCheck();
     }
 
-//    private class getTrailerOrReview extends AsyncTask<String, Void, Void> {
-//        StringBuilder total = new StringBuilder();
-//        String firstTrailer;
-//
-//
-//        /**
-//         * Override this method to perform a computation on a background thread. The
-//         * specified parameters are the parameters passed to {@link #execute}
-//         * by the caller of this task.
-//         * <p/>
-//         * This method can call {@link #publishProgress} to publish updates
-//         * on the UI thread.
-//         *
-//         * @param params The parameters of the task.
-//         * @return A result, defined by the subclass of this task.
-//         * @see #onPreExecute()
-//         * @see #onPostExecute
-//         * @see #publishProgress
-//         */
-//        @Override
-//        protected Void doInBackground(String... params) {
-//            try {
-//                URL url = new URL("http://api.themoviedb.org/3/movie/" + params[0] + "/"+params[1]+"?api_key=" + getResources().getString(R.string.apiKey));
-//                // making url request and sending it to be read
-//                Log.e("my url is", String.valueOf(url));
-//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//                // preparing a reader to go through the response
-//                BufferedReader r = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                // below allows for controlled reading of potentially large text
-//                String line;
-//                while ((line = r.readLine()) != null) {
-//                    total.append(line);
-//                }
-//                JSONObject popArray = new JSONObject(total.toString());
-//                trailers = popArray.getJSONArray("results");
-//                for (int i = 0; i < trailers.length(); i++) {
-//                    JSONObject trailer = trailers.getJSONObject(i);
-//                    firstTrailer = trailer.getString("key");
-//                    trailerLink = firstTrailer;
-//                }
-//                Log.e("Trail", total.toString());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            TextView mTrailer = (TextView) findViewById(R.id.trailerLink);
-//            mTrailer.setVisibility(View.VISIBLE);
-//        }
-//    }
-
     public void addFavorite(View v) {
 
-            ContentValues fav = new ContentValues();
+        ContentValues fav = new ContentValues();
 
-            fav.put(MovDBContract.MovieEntry.COLUMN_MOVIEID, details.getMovieId());
-            fav.put(MovDBContract.MovieEntry.COLUMN_TITLE, details.getTitle());
-            fav.put(MovDBContract.MovieEntry.COLUMN_DESCRIPTION, details.getSynopsis());
-            fav.put(MovDBContract.MovieEntry.COLUMN_POSTER, details.getPoster());
-            fav.put(MovDBContract.MovieEntry.COLUMN_BACKDROP, details.getBackdrop());
-            fav.put(MovDBContract.MovieEntry.COLUMN_RATING, details.getRating());
-            fav.put(MovDBContract.MovieEntry.COLUMN_RELEASE, details.getReleaseDate());
-            fav.put(MovDBContract.MovieEntry.COLUMN_FAVORITE, "favorite");
+        fav.put(MovDBContract.MovieEntry.COLUMN_MOVIEID, details.getMovieId());
+        fav.put(MovDBContract.MovieEntry.COLUMN_TITLE, details.getTitle());
+        fav.put(MovDBContract.MovieEntry.COLUMN_DESCRIPTION, details.getSynopsis());
+        fav.put(MovDBContract.MovieEntry.COLUMN_POSTER, details.getPoster());
+        fav.put(MovDBContract.MovieEntry.COLUMN_BACKDROP, details.getBackdrop());
+        fav.put(MovDBContract.MovieEntry.COLUMN_RATING, details.getRating());
+        fav.put(MovDBContract.MovieEntry.COLUMN_RELEASE, details.getReleaseDate());
+        fav.put(MovDBContract.MovieEntry.COLUMN_FAVORITE, "favorite");
 
-            Uri rUri = getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
-            if (rUri == null) {
-                removeFavorite();
-            } else {
-                Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
-                fButton.setBackgroundColor(Color.YELLOW);
-                fButton.setText("Favorite!");
-            }
+        Uri rUri = getContentResolver().insert(MovDBContract.MovieEntry.CONTENT_URI, fav);
+        if (rUri == null) {
+            removeFavorite();
+        } else {
+            Toast.makeText(this, rUri.toString(), Toast.LENGTH_SHORT).show();
+            fButton.setBackgroundColor(Color.YELLOW);
+            fButton.setText("Favorite!");
+        }
     }
 
     private Boolean favoriteCheck() {
